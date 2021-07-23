@@ -1,24 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React ,{useRef,useState} from 'react';
+import CreateUser from './CreateUser';
+import UserList from './UserList';
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  const [inputs,setinputs]=useState({
+    username : '',
+    email : '',
+  });
+  const {username , email} = inputs;
+  const onChange = e => {
+    const {name , value} = e.target;
+    setinputs({
+      ...inputs,
+      [name]:value
+    });
+  };
+  const users = [
+    {
+        id : 1,
+        username : 'HYUN',
+        email : 'sddsk1123@naver.com',
+    },
+    {
+        id : 2,
+        username : 'MinSuk',
+        email : 'hee7411@naver.com',
+    },
+    {
+        id : 3,
+        username : 'Ini',
+        email : 'Ini@naver.com',
+    }
+  ];
+  const nextId = useRef(4);
+  const onCreate = () =>{
+    setinputs({
+      username : '',
+      email : ''
+    });
+  }
+  return(
+    <>
+      <CreateUser username = {username} email = {email} onChange = {onChange} onCreate = {onCreate}/>
+      <UserList users= {users}/>
+    </>
   );
 }
 
